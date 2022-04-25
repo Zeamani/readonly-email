@@ -1,0 +1,518 @@
+@use "_colors.sass"
+@use "_animations.sass"
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
+
+/* font-family: 'Roboto', sans-serif; */
+    
+html, body
+    margin: 0
+    padding: 0
+    font-family: 'Roboto', sans-serif
+    overflow: hidden
+    height: 100vh
+    background-color: var(--background-app)
+    color: var(--text-color-basic)
+    transition: background-color 0.2s, color 0.2s
+
+#root
+    height: 100%
+
+.App
+    height: 100%
+    
+.modal
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-color: rgba(0, 0, 0, 0.5)
+    z-index: 10
+    display: flex
+    justify-content: center
+    align-items: center
+    color: var(--text-color-basic)
+
+.modal__inner
+    margin: 0 20px
+    height: 410px
+    width: 410px
+    background-color: var(--background-app)
+    border-radius: 20px
+    box-sizing: border-box
+    padding: 15px
+    box-shadow: 0px 0px 16px 5px rgba(2, 13, 41, 0.16)
+    animation-name: modal_appearance
+    animation-duration: 0.15s
+
+.modal__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 20px
+
+.modal__title
+    margin: 0
+    padding: 0
+    font-size: 30px
+
+.modal__close-button
+    font-size: 22px
+    cursor: pointer
+
+.logo
+    font-weight: 700
+    font-size: 30px
+
+.main
+    height: 100%
+    width: 100%
+    display: flex
+    align-items: stretch
+
+.open-letter
+    flex: 500px 0 0
+    box-sizing: border-box
+    border-left: 1px solid var(--app-color-additional-two)
+    overflow: hidden
+    height: 100%
+    display: flex
+    flex-direction: column
+    
+.open-letter__header
+    height: 60px
+    flex-shrink: 0
+    flex-grow: 0
+    display: flex
+    padding: 0 15px
+    align-items: center
+    justify-content: flex-end
+    column-gap: 20px
+
+.open-letter__close-control
+    font-size: 24px
+    color: var(--app-color-additional-four)
+    cursor: pointer
+
+    &:hover
+        color: var(--app-color-additional-three)
+
+.open-letter__add-to-folder
+    font-size: 20px
+    color: var(--app-color-additional-four)
+    cursor: pointer
+
+    &:hover
+        color: var(--app-color-additional-three)
+
+.open-letter__body
+    padding: 0 15px 15px
+    animation-name: open-letter__body_appearance
+    animation-delay: 0.35s
+    animation-duration: 0.2s
+    animation-fill-mode: both
+    min-height: 0px
+    overflow: auto
+
+.open-letter__text
+    color: var(--text-color-additional)
+
+.open-letter__title
+    margin: 0
+    padding: 0
+
+.open-letter__letter-info
+    display: flex
+    justify-content: space-between
+
+.open-letter__name
+    font-weight: 700
+
+.letters
+    height: 100%
+    flex-basis: 0%
+    flex-shrink: 1
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+
+.letters__header
+    height: 60px
+    box-shadow: -10px 0px 16px rgba(2, 13, 41, 0.16)
+    flex-shrink: 0
+    flex-grow: 0
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    width: 100%
+    padding: 0 30px
+
+.letters__body
+    padding: 10px
+    display: flex
+    flex-direction: column
+    min-height: 0px
+    overflow: auto
+
+.letters__list
+    width: 100%
+    border-collapse: collapse
+    table-layout: fixed
+
+.letters__item
+    border-bottom: 1px solid var(--app-color-additional-two)
+    font-size: 15px
+    cursor: pointer
+    transition: border-bottom 0.1s
+
+    &:hover
+        border-bottom: 1px solid var(--app-color-additional-three)
+
+.letters__item td
+    padding: 10px 10px 12px
+
+.letters-item__checkbox
+    width: 20px
+    text-align: center
+
+    input
+        display: none
+
+.letters-item__checkbox-wrap
+    display: inline-block
+    width: 11px 
+    height: 11px
+    border: 1px solid var(--app-color-additional-two)
+    cursor: pointer
+    position: relative
+    top: 1px
+    border-radius: 2px
+    z-index: 1
+
+    &:hover
+        border: 1px solid var(--app-color-additional-three)   
+
+.letters-item__checkbox input:checked ~ .letters-item__checkbox-wrap::after
+        content: ""
+        display: block
+        border: 2px solid var(--background-folders)
+        border-left: none
+        border-top: none
+        width: 3px
+        height: 7px
+        transform: rotate(45deg) translate(2px, -2.5px)
+
+.letters-item__name
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    padding: 0 10px
+    width: 140px
+
+.letters-item__content
+    box-sizing: border-box
+    width: 100%
+
+    div
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+
+    span
+        color: var(--text-color-additional)
+
+        
+.letters-item__date
+    white-space: nowrap
+    padding: 0 10px
+    width: 80px
+    text-align: right
+
+.folders
+    height: 100%
+    flex-basis: 270px
+    flex-shrink: 0
+    flex-grow: 0
+    background-color: var(--background-folders)
+    color: var(--text-color-other)
+    display: flex
+    flex-direction: column
+
+.folders__header
+    height: 60px
+    flex-grow: 0
+    flex-shrink: 0
+    display: flex
+    justify-content: center
+    align-items: center
+
+.folders__body
+    display: flex
+    flex-direction: column
+    min-height: 0px
+
+.folders__list
+    min-height: auto
+    overflow: auto
+
+.folders__item
+    padding: 8px 0 8px 35px
+    box-sizing: content-box
+    font-size: 18px
+    width: 170px
+    border-radius: 0 20px 20px 0
+    cursor: pointer
+    transition: background-color 0.1s
+    margin-top: 1px
+
+.folders__item_custom
+    position: relative
+
+.folders__remove-button
+    font-size: 20px
+    position: absolute
+    right: 10px
+    top: 0
+    bottom: 0
+    margin: auto
+    opacity: 0
+    transition: opacity 0.1s
+
+.folders__item_custom:hover
+
+    .folders__remove-button
+        opacity: 1
+
+.folders__item.active
+    background-color: var(--background-folders-item)
+
+.folders__item.active:hover
+    background-color: var(--background-folders-item)
+
+.folders__item:hover
+    background-color: var(--background-folders-item-hover)
+
+.folders__item span
+    display: inline-block
+    padding-left: 10px
+
+.folders-list__add-button
+    padding: 6px 0 6px 35px
+    margin: 10px 0
+    width: 100%
+    font-size: 18px
+    border: 2px solid var(--background-folders-item)
+    border-left: none
+    border-right: none
+    cursor: pointer
+    transition: all 0.1s
+    box-sizing: border-box
+
+    span
+        margin-left: 10px
+    
+.folders-list__add-button:hover
+    background-color: var(--background-folders-item-hover)
+
+.letters__search
+    width: 430px
+    position: relative
+    height: 30px
+
+.letters__search-input
+    border: none
+    border-radius: 30px
+    width: 100%
+    height: 100%
+    box-shadow: inset 0px 0px 20px 17px var(--app-color-additional-one)
+    box-sizing: border-box
+    padding: 0 30px 0 10px
+    color: var(--text-color-basic)
+
+.letters__search-input:focus
+    outline: #87898F solid 1px
+
+.letters__search-icon
+    position: absolute
+    right: 10px
+    top: 0
+    bottom: 0
+    margin: auto 0
+    color: var(--app-color-additional-four)
+
+.letters__search-result
+    position: absolute
+    height: 200px
+    background-color: var(--background-app)
+    top: calc(100% + 15px)
+    box-shadow: 0px 12px 14px rgba(2, 13, 41, 0.16)
+    overflow: auto
+    padding: 5px
+    width: 100%
+    z-index: 2
+    
+.letters__control
+    width: 100%
+    height: 30px
+    display: flex
+    flex-shrink: 0
+    flex-grow: 0
+    align-items: center
+    box-sizing: border-box
+    padding: 0 10px
+
+.letters-control__count
+    margin-right: auto
+    font-size: 16px
+
+.letters-control__add-to-folder
+    font-size: 22px
+    margin-right: 20px
+    cursor: pointer
+    color: var(--app-color-additional-four)
+
+    &:hover
+        color: var(--app-color-additional-three)
+
+.letters-control__remove-to-folder
+    font-size: 20px
+    margin-right: 20px
+    cursor: pointer
+    color: var(--app-color-additional-four)
+
+    &:hover
+        color: var(--app-color-additional-three)
+
+.letters-control__clear
+    cursor: pointer
+    font-size: 22px
+    color: var(--app-color-additional-four)
+
+    &:hover
+        color: var(--app-color-additional-three)
+
+.extra-menu
+    position: relative
+
+    &.active .extra-menu__icon-wrap
+        border-radius: 0 50% 50% 0
+
+    &.active .extra-menu__body
+        display: block
+
+.extra-menu__item
+    width: 100%
+    display: flex
+    justify-content: flex-start
+    align-items: center
+
+    span
+        margin-left: 10px
+        
+.extra-menu__icon-wrap
+    width: 30px
+    height: 30px
+    background-color: var(--app-color-additional-one)
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    border-radius: 50%
+    z-index: 5
+    position: relative
+    color: var(--app-color-additional-four)
+
+    &:hover .extra-menu__icon
+        color: var(--app-color-additional-three)
+
+.extra-menu__icon
+    font-size: 22px
+    color: #87898F
+    cursor: pointer
+
+.extra-menu__body
+    width: 120px
+    height: 120px
+    background-color: var(--app-color-additional-one)
+    display: none
+    position: absolute
+    top: 0
+    right: 100%
+    border-radius: 8px 0 8px 8px
+    box-shadow: 0px 12px 14px rgba(2, 13, 41, 0.16)
+    z-index: 4
+    padding: 10px
+
+.add-folder
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: 5px
+
+.add-folder__input
+    border-radius: 5px
+    height: 40px
+    font-size: 16px
+    width: 100%
+    box-sizing: border-box
+    padding: 5px
+    border: 1px solid var(--app-color-additional-four)
+    background-color: var(--app-color-additional-one)
+    color: var(--text-color-basic)
+
+.add-folder__help
+    margin: 0
+    padding: 0
+    font-size: 14px
+    color: var(--text-color-additional)
+    margin-bottom: 10px
+
+.add-letter-to-folder
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    gap: 15px 
+
+.add-letter-to-folder__error
+    margin: 0
+    padding: 0
+    font-size: 18px
+
+.add-letter-to-folder__select
+    font-size: 16px
+    width: 200px
+    height: 30px
+    background-color: var(--app-color-additional-one)
+    color: var(--text-color-basic)
+    border-radius: 5px
+
+.toggle-theme
+    width: 45px
+    height: 20px
+    padding: 3px 5px
+    border-radius: 20px
+    background-color: red
+    display: flex
+    justify-content: space-between
+    align-items: center
+    color: var(--text-color-basic)
+    background-color: var(--background-app)
+    cursor: pointer
+    position: relative
+
+.toggle-theme__cursor
+    position: absolute
+    height: 24px
+    width: 24px
+    border: 2px solid var(--text-color-additional)
+    border-radius: 50%
+    transition: left 0.3s
+
+    &.light
+        left: -1px
+
+    &.dark
+        left: calc(50% - 1px)
+    
